@@ -1,0 +1,1 @@
+This is an example storage folder. You can configure a custom folder within the `config.py` file.
