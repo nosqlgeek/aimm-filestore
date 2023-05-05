@@ -1,13 +1,13 @@
 # A simple Python implementation of a file store
 
-This service allows you to store, retrieve and delete files by a unique key.
+This service allows you to store, retrieve and delete files with a unique key.
 
 ## Configuration
 
 The file `config.py` contains the following configuration settings:
 
 `data_folder`: The folder to which files should be written or retrieved from
-`access_key` : A simple access key that needs to be passed when accessing the file store
+`access_key`: A simple access key that needs to be passed when accessing the file store
 `access_secret`: The secret that needs to be passed when accessing the file store
 
 The default configuration reads those configuration settings from the following environment variables:
@@ -16,7 +16,7 @@ The default configuration reads those configuration settings from the following 
 * `FS_ACCESS_KEY`
 * `FS_ACCESS_SECRET`
 
-## How to use
+## API
 
 The file store provides the following API:
 
