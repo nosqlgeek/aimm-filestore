@@ -34,15 +34,12 @@ Store a file
 '''
 @app.route('/store/<key>', methods=['POST'])
 def store(key):
-    print(key)
     args = request.args
     if not _authenticated(args.get("access_key"), args.get("access_secret")):
         abort(401, ERR_AUTH)
 
-    print(request.content_type)
     if _check_key(key) and request.content_type == "application/octet-stream":
         data = request.get_data()
-        print(str(data))
         f = open("{}/{}".format(cfg.get("data_folder"), key), "wb")
         f.write(data)
         f.close()
