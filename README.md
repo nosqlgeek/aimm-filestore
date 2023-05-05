@@ -6,9 +6,9 @@ This service allows you to store, retrieve and delete files with a unique key.
 
 The file `config.py` contains the following configuration settings:
 
-`data_folder`: The folder to which files should be written or retrieved from
-`access_key`: A simple access key that needs to be passed when accessing the file store
-`access_secret`: The secret that needs to be passed when accessing the file store
+* `data_folder`: The folder to which files should be written or retrieved from
+* `access_key`: A simple access key that needs to be passed when accessing the file store
+* `access_secret`: The secret that needs to be passed when accessing the file store
 
 The default configuration reads those configuration settings from the following environment variables:
 
