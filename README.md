@@ -24,7 +24,10 @@ The file store provides the following API:
 * HTTP GET from `/retrieve/<key>`
 * HTTP DELETE to `/delete/<key>`
 
-The HTTP `Content-Type` header must be set to `application/octet-stream`. The authentication parameters must be passed as URL parameters.
+The HTTP `Content-Type` header must be set to `application/octet-stream`. The authentication parameters must be passed within the header via the following custom fields:
+
+* `X-Access-Key`
+* `X-Access-Secret`
 
 Here are some examples:
 
@@ -32,19 +35,19 @@ Here are some examples:
 * Upload a file: 
 
 ```
-curl --header 'Content-Type:application/octet-stream' --request POST --data-binary "@./logo.png" "http://localhost:5000/store/test-1.png?access_key=<access_key>&access_secret=<access_secret>"
+curl -H 'Content-Type:application/octet-stream' -H 'X-Access-Key:<access_key>' -H 'X-Access-Secret:<access_secret>' --request POST --data-binary '@./logo.png' 'http://localhost:5000/store/test-1.png'
 ```
 
 * Get a file:
 
 ```
-curl --output "../data/output.png" "http://localhost:5000/retrieve/test-1.png?access_key=<access_key>&access_secret=<access_secret>"
+curl  -H 'X-Access-Key:<access_key>' -H 'X-Access-Secret:<access_secret>' --output '../data/output.png' 'http://localhost:5000/retrieve/test-1.png'
 ```
 
 * Delete a file:
 
 ```
-curl --request DELETE "http://localhost:5000/delete/test-1.png?access_key=<access_key>&access_secret=<access_secret>"
+curl  -H 'X-Access-Key:<access_key>' -H 'X-Access-Secret:<access_secret>' --request DELETE 'http://localhost:5000/delete/test-1.png'
 ```
 
 > Note: This example uses the command line tool `curl`, but any HTTP client can be used. Python comes with the [`requests`](https://www.w3schools.com/python/module_requests.asp) module.
