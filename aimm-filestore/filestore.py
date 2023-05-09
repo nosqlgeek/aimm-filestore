@@ -9,6 +9,7 @@ ERR_REQ = "This service does only accept binary data. " \
           "Please also ensure that your key contains only alphanumeric characters or -, _, and ."
 ERR_FILE_NOT_FOUND = "Couldn't find a file with this key."
 ERR_FOLDER_NOT_FOUND = "Couldn't find the data folder."
+ERR_INVALID_KEY = "You passed an invalid key."
 MSG_STORE = "Your file was successfully stored."
 MSG_DELETE = "Your file was successfully deleted."
 
@@ -20,7 +21,11 @@ Ensure that the key has a sane format
 '''
 def _check_key(key):
     pattern = re.compile("^[a-zA-Z0-9-_\\.]+$")
-    return bool(pattern.match(key))
+
+    # Matches the pattern and prevent breaking out of the data folder
+    return bool(pattern.match(key)) and ('..' not in key)
+
+
 
 
 '''
@@ -58,6 +63,9 @@ def retrieve(key):
     if not _authenticated(request.headers):
         abort(401, ERR_AUTH)
 
+    if not _check_key(key):
+        abort(400, ERR_INVALID_KEY)
+
     file_path = "{}/{}".format(cfg.get("data_folder"), key)
 
     if not os.path.isfile(file_path):
@@ -87,6 +95,9 @@ Delete a file
 def delete(key):
     if not _authenticated(request.headers):
         abort(401, ERR_AUTH)
+
+    if not _check_key(key):
+        abort(400, ERR_INVALID_KEY)
 
     file_path = "{}/{}".format(cfg.get("data_folder"), key)
 
