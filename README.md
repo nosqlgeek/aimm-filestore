@@ -22,6 +22,7 @@ The file store provides the following API:
 
 * HTTP POST to `/store/<key>`
 * HTTP GET from `/retrieve/<key>`
+* HTTP GET from `/list`
 * HTTP DELETE to `/delete/<key>`
 
 The HTTP `Content-Type` header must be set to `application/octet-stream`. The authentication parameters must be passed within the header via the following custom fields:
