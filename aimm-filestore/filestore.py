@@ -25,7 +25,9 @@ def _check_key(key):
 '''
 A very simple authentication mechanism
 '''
-def _authenticated(access_key, access_secret):
+def _authenticated(headers):
+    access_key = dict(headers).get("X-Access-Key")
+    access_secret = dict(headers).get("X-Access-Secret")
     return access_key == cfg.get("access_key") and access_secret == cfg.get("access_secret")
 
 
@@ -34,8 +36,8 @@ Store a file
 '''
 @app.route('/store/<key>', methods=['POST'])
 def store(key):
-    args = request.args
-    if not _authenticated(args.get("access_key"), args.get("access_secret")):
+
+    if not _authenticated(request.headers):
         abort(401, ERR_AUTH)
 
     if _check_key(key) and request.content_type == "application/octet-stream":
@@ -49,8 +51,7 @@ def store(key):
 
 @app.route('/retrieve/<key>', methods=['GET'])
 def retrieve(key):
-    args = request.args
-    if not _authenticated(args.get("access_key"), args.get("access_secret")):
+    if not _authenticated(request.headers):
         abort(401, ERR_AUTH)
 
     file_path = "{}/{}".format(cfg.get("data_folder"), key)
@@ -62,8 +63,7 @@ def retrieve(key):
 
 @app.route('/delete/<key>', methods=['DELETE'])
 def delete(key):
-    args = request.args
-    if not _authenticated(args.get("access_key"), args.get("access_secret")):
+    if not _authenticated(request.headers):
         abort(401, ERR_AUTH)
 
     file_path = "{}/{}".format(cfg.get("data_folder"), key)
