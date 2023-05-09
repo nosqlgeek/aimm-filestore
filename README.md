@@ -44,6 +44,12 @@ curl -H 'Content-Type:application/octet-stream' -H 'X-Access-Key:<access_key>' -
 curl  -H 'X-Access-Key:<access_key>' -H 'X-Access-Secret:<access_secret>' --output '../data/output.png' 'http://localhost:5000/retrieve/test-1.png'
 ```
 
+* List all files:
+
+```
+curl  -H 'X-Access-Key:<access_key>' -H 'X-Access-Secret:<access_secret>' 'http://localhost:5000/list'
+```
+
 * Delete a file:
 
 ```
