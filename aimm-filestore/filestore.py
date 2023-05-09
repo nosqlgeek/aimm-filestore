@@ -50,6 +50,9 @@ def store(key):
     else:
         abort(400, ERR_REQ)
 
+'''
+Download a file
+'''
 @app.route('/retrieve/<key>', methods=['GET'])
 def retrieve(key):
     if not _authenticated(request.headers):
@@ -62,6 +65,9 @@ def retrieve(key):
 
     return send_from_directory(cfg.get("data_folder"),key)
 
+'''
+List all files
+'''
 @app.route('/list', methods=['GET'])
 def list():
     if not _authenticated(request.headers):
@@ -74,6 +80,9 @@ def list():
 
     return jsonify(os.listdir(folder))
 
+'''
+Delete a file
+'''
 @app.route('/delete/<key>', methods=['DELETE'])
 def delete(key):
     if not _authenticated(request.headers):
