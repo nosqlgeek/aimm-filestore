@@ -6,10 +6,12 @@ from config import CONFIG as cfg
 # Constants
 ERR_AUTH = "You passed invalid access credentials."
 ERR_REQ = "This service does only accept binary data. " \
-          "Please also ensure that your key contains only alphanumeric characters or -, _, and ."
+          "Please also ensure that your key contains only alphanumeric characters, hyphen (-), underscore (_), " \
+          "or dot (.)."
 ERR_FILE_NOT_FOUND = "Couldn't find a file with this key."
 ERR_FOLDER_NOT_FOUND = "Couldn't find the data folder."
-ERR_INVALID_KEY = "You passed an invalid key."
+ERR_INVALID_KEY = "You passed an invalid key. Only alphanumeric characters, hyphen (-), underscore (_), and dot (.) " \
+                  "are allowed."
 MSG_STORE = "Your file was successfully stored."
 MSG_DELETE = "Your file was successfully deleted."
 
@@ -71,7 +73,7 @@ def retrieve(key):
     if not os.path.isfile(file_path):
         abort(404, ERR_FILE_NOT_FOUND)
 
-    return send_from_directory(cfg.get("data_folder"),key)
+    return send_from_directory(cfg.get("data_folder"), key)
 
 '''
 List all files
