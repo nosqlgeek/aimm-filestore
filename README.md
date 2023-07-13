@@ -1,4 +1,5 @@
-# A simple Python implementation of a file store
+# A simple file store service that allows storing artifact images and more
+
 
 This service allows you to store, retrieve and delete files with a unique key.
 
